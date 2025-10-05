@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade 4 English Forum</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4CAF50;
+            --secondary: #2196F3;
+            --accent: #FFC107;
+            --light: #f5f5f5;
+            --dark: #333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+        
+        body {
+            background-color: #f0f8ff;
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 10px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 1.5rem;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .rules {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-left: 5px solid var(--accent);
+        }
+        
+        .rules h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .rules ul {
+            padding-left: 1.5rem;
+        }
+        
+        .rules li {
+            margin-bottom: 0.5rem;
+            padding-left: 0.5rem;
+        }
+        
+        .post-form {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        input:focus, textarea:focus {
+            border-color: var(--secondary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+        }
+        
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+            line-height: 1.5;
+        }
+        
+        button {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .posts-container {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .refresh-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .post {
+            background: #fafafa;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 2px solid #e8f5e8;
+            transition: all 0.3s;
+        }
+        
+        .post:hover {
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .post-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            gap: 1rem;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        
+        .post-author {
+            font-weight: bold;
+            color: var(--secondary);
+            font-size: 1.2rem;
+        }
+        
+        .post-date {
+            color: #777;
+            font-size: 0.9rem;
+            margin-left: auto;
+        }
+        
+        .post-content {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #444;
+            background: white;
+            padding: 1.2rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .post-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .like-btn, .comment-btn {
+            background: none;
+            border: 2px solid #e0e0e0;
+            color: #666;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+        
+        .like-btn:hover, .comment-btn:hover {
+            border-color: var(--secondary);
+            color: var(--secondary);
+            transform: translateY(-1px);
+        }
+        
+        .like-btn.active {
+            background: #ffebee;
+            border-color: #e74c3c;
+            color: #e74c3c;
+        }
+        
+        .comments-section {
+            margin-top: 1.5rem;
+            padding: 1.2rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .comment {
+            background: white;
+            padding: 1rem;
+            margin-bottom: 0.8rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .comment:last-child {
+            margin-bottom: 0;
+        }
+        
+        .comment-author {
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 0.95rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .comment-content {
+            color: #555;
+            line-height: 1.4;
+        }
+        
+        .comment-form {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .comment-author-input, .comment-input {
+            flex: 1;
+            min-width: 150px;
+            padding: 0.8rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+        }
+        
+        .comment-submit {
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #777;
+        }
+        
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: #ddd;
+        }
+        
+        .empty-state h3 {
+            margin-bottom: 0.5rem;
+            color: #666;
+        }
+        
+        .notification {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem 1.8rem;
+            border-radius: 10px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            display: none;
+            z-index: 1000;
+            font-weight: bold;
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: var(--secondary);
+        }
+        
+        .loading i {
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 768px) {
+            .comment-form {
+                flex-direction: column;
+            }
+            
+            .comment-submit {
+                align-self: flex-end;
+            }
+            
+            .refresh-section {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch;
+            }
+            
+            .post-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            
+            .post-date {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><i class="fas fa-book-reader"></i> Grade 4 English Forum</h1>
+        <p>Share your stories and ideas in English with classmates!</p>
+    </header>
+    
+    <div class="container">
+        <div class="rules">
+            <h2><i class="fas fa-info-circle"></i> Forum Rules</h2>
+            <ul>
+                <li><i class="fas fa-heart"></i> Be kind and respectful to everyone</li>
+                <li><i class="fas fa-language"></i> Write in English only</li>
+                <li><i class="fas fa-pencil-alt"></i> Share your own stories and ideas</li>
+                <li><i class="fas fa-user"></i> Use your real first name when posting</li>
+                <li><i class="fas fa-star"></i> Have fun learning English together!</li>
+            </ul>
+        </div>
+        
+        <div class="post-form">
+            <h2><i class="fas fa-edit"></i> Share Your Story</h2>
+            <div class="form-group">
+                <label for="student-name"><i class="fas fa-user"></i> Your Name:</label>
+                <input type="text" id="student-name" placeholder="Enter your first name (e.g., Tom, Emma)">
+            </div>
+            <div class="form-group">
+                <label for="post-content"><i class="fas fa-book"></i> Your Story or Idea:</label>
+                <textarea id="post-content" placeholder="Write your story or idea in English here... You can write about your favorite animal, a fun day, your family, or anything you like!"></textarea>
+            </div>
+            <button id="submit-post">
+                <i class="fas fa-paper-plane"></i> Post Your Story
+            </button>
+        </div>
+        
+        <div class="posts-container">
+            <div class="refresh-section">
+                <h2><i class="fas fa-book-open"></i> Class Stories</h2>
+                <button id="refresh-posts">
+                    <i class="fas fa-sync-alt"></i> Refresh Posts
+                </button>
+            </div>
+            
+            <div id="posts-list">
+                <div class="loading">
+                    <i class="fas fa-spinner"></i> Loading stories...
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i> Message sent successfully!
+    </div>
+
+    <script>
+        // 配置 - 请替换为您的 Google Sheets 信息
+        const SHEET_ID = 'YOUR_GOOGLE_SHEET_ID_HERE'; // 替换为您的 Sheet ID
+        const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
+        
+        // 显示通知
+        function showNotification(message, isError = false) {
+            const notification = document.getElementById('notification');
+            notification.innerHTML = isError ? 
+                `<i class="fas fa-exclamation-triangle"></i> ${message}` :
+                `<i class="fas fa-check-circle"></i> ${message}`;
+            
+            notification.style.background = isError ? 
+                'linear-gradient(135deg, #f44336, #d32f2f)' :
+                'linear-gradient(135deg, var(--primary), var(--secondary))';
+            
+            notification.style.display = 'block';
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 4000);
+        }
+        
+        // 从 Google Sheets 加载帖子
+        async function loadPostsFromSheet() {
+            try {
+                const response = await fetch(SHEET_URL);
+                if (!response.ok) throw new Error('Network error');
+                
+                const text = await response.text();
+                const json = JSON.parse(text.substring(47).slice(0, -2));
+                
+                const posts = [];
+                if (json.table.rows.length > 0) {
+                    // 跳过表头，从第二行开始
+                    for (let i = 1; i < json.table.rows.length; i++) {
+                        const row = json.table.rows[i];
+                        if (row.c && row.c.length >= 4) {
+                            posts.push({
+                                id: row.c[0]?.v || i,
+                                author: row.c[1]?.v || 'Anonymous',
+                                content: row.c[2]?.v || '',
+                                date: row.c[3]?.v || 'Recently',
+                                likes: parseInt(row.c[4]?.v) || 0,
+                                comments: row.c[5]?.v ? JSON.parse(row.c[5].v) : []
+                            });
+                        }
+                    }
+                }
+                
+                return posts;
+            } catch (error) {
+                console.error('Error loading posts:', error);
+                showNotification('Error loading posts. Using demo data.', true);
+                
+                // 返回演示数据
+                return [
+                    {
+                        id: 1,
+                        author: "Tom",
+                        content: "My favorite animal is the dolphin. Dolphins are very smart and friendly. They live in the ocean and like to swim and jump. I saw dolphins at the aquarium last summer. They were playing with a ball. It was so fun to watch!",
+                        date: "2 days ago",
+                        likes: 12,
+                        comments: [
+                            { author: "Lisa", content: "I love dolphins too! They are so cute." },
+                            { author: "Mike", content: "Did you know dolphins can talk to each other?" }
+                        ]
+                    },
+                    {
+                        id: 2,
+                        author: "Emma",
+                        content: "Yesterday, I went to the park with my family. We had a picnic. I played on the swings and the slide. My dad pushed me on the swing very high. Then we ate sandwiches and fruit. It was a sunny day. I had so much fun!",
+                        date: "3 days ago",
+                        likes: 8,
+                        comments: []
+                    }
+                ];
+            }
+        }
+        
+        // 显示帖子
+        async function loadPosts() {
+            const postsList = document.getElementById('posts-list');
+            postsList.innerHTML = '<div class="loading"><i class="fas fa-spinner"></i> Loading stories...</div>';
+            
+            try {
+                const posts = await loadPostsFromSheet();
+                
+                if (posts.length === 0) {
+                    postsList.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-book-open"></i>
+                            <h3>No stories yet</h3>
+                            <p>Be the first to share your English story!</p>
+                            <p><small>Tell us about your favorite animal, a fun day, or anything you like!</small></p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                postsList.innerHTML = '';
+                posts.slice().reverse().forEach(post => {
+                    const postElement = createPostElement(post);
+                    postsList.appendChild(postElement);
+                });
+            } catch (error) {
+                postsList.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>Unable to load stories</h3>
+                        <p>Please check your internet connection and try again.</p>
+                    </div>
+                `;
+            }
+        }
+        
+        // 创建帖子元素
+        function createPostElement(post) {
+            const postElement = document.createElement('div');
+            postElement.className = 'post';
+            postElement.dataset.id = post.id;
+            
+            const authorInitials = post.author.substring(0, 2).toUpperCase();
+            let commentsHTML = '';
+            
+            if (post.comments && post.comments.length > 0) {
+                commentsHTML = `
+                    <div class="comments-section">
+                        <h4><i class="fas fa-comments"></i> Comments (${post.comments.length})</h4>
+                        ${post.comments.map(comment => `
+                            <div class="comment">
+                                <div class="comment-author">${comment.author}</div>
+                                <div class="comment-content">${comment.content}</div>
+                            </div>
+                        `).join('')}
+                        <div class="comment-form">
+                            <input type="text" class="comment-author-input" placeholder="Your name">
+                            <input type="text" class="comment-input" placeholder="Write a nice comment...">
+                            <button class="comment-submit"><i class="fas fa-reply"></i> Reply</button>
+                        </div>
+                    </div>
+                `;
+            } else {
+                commentsHTML = `
+                    <div class="comments-section" style="display: none;">
+                        <div class="comment-form">
+                            <input type="text" class="comment-author-input" placeholder="Your name">
+                            <input type="text" class="comment-input" placeholder="Write a nice comment...">
+                            <button class="comment-submit"><i class="fas fa-reply"></i> Reply</button>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            postElement.innerHTML = `
+                <div class="post-header">
+                    <div class="author-avatar">${authorInitials}</div>
+                    <div class="post-author">${post.author}</div>
+                    <div class="post-date"><i class="far fa-clock"></i> ${post.date}</div>
+                </div>
+                <div class="post-content">
+                    <p>${post.content}</p>
+                </div>
+                <div class="post-actions">
+                    <button class="like-btn">
+                        <i class="fas fa-thumbs-up"></i> <span class="like-count">${post.likes}</span> Likes
+                    </button>
+                    <button class="comment-btn">
+                        <i class="fas fa-comment"></i> Comment
+                    </button>
+                </div>
+                ${commentsHTML}
+            `;
+            
+            // 点赞功能（本地存储）
+            const likeBtn = postElement.querySelector('.like-btn');
+            likeBtn.addEventListener('click', function() {
+                const likeCount = this.querySelector('.like-count');
+                let count = parseInt(likeCount.textContent);
+                
+                if (this.classList.contains('active')) {
+                    this.classList.remove('active');
+                    count--;
+                } else {
+                    this.classList.add('active');
+                    count++;
+                    showNotification('Thanks for your like! 👍');
+                }
+                
+                likeCount.textContent = count;
+            });
+            
+            // 评论功能
+            const commentBtn = postElement.querySelector('.comment-btn');
+            const commentsSection = postElement.querySelector('.comments-section');
+            const commentSubmit = postElement.querySelector('.comment-submit');
+            
+            commentBtn.addEventListener('click', function() {
+                commentsSection.style.display = commentsSection.style.display === 'none' ? 'block' : 'none';
+            });
+            
+            commentSubmit.addEventListener('click', function() {
+                const commentAuthorInput = this.parentElement.querySelector('.comment-author-input');
+                const commentInput = this.parentElement.querySelector('.comment-input');
+                const author = commentAuthorInput.value.trim();
+                const content = commentInput.value.trim();
+                
+                if (!author) {
+                    showNotification('Please enter your name', true);
+                    return;
+                }
+                
+                if (!content) {
+                    showNotification('Please write a comment!', true);
+                    return;
+                }
+                
+                // 在真实版本中，这里会保存到 Google Sheets
+                const commentElement = document.createElement('div');
+                commentElement.className = 'comment';
+                commentElement.innerHTML = `
+                    <div class="comment-author">${author}</div>
+                    <div class="comment-content">${content}</div>
+                `;
+                
+                commentsSection.insertBefore(commentElement, commentsSection.querySelector('.comment-form'));
+                commentAuthorInput.value = '';
+                commentInput.value = '';
+                
+                showNotification('Comment added! (In real version, this would save online)');
+            });
+            
+            return postElement;
+        }
+        
+        // 发布新帖子
+        document.getElementById('submit-post').addEventListener('click', function() {
+            const author = document.getElementById('student-name').value.trim();
+            const content = document.getElementById('post-content').value.trim();
+            
+            if (!author) {
+                showNotification('Please enter your name', true);
+                return;
+            }
+            
+            if (!content) {
+                showNotification('Please write your story before posting!', true);
+                return;
+            }
+            
+            if (content.length < 10) {
+                showNotification('Please write a longer story (at least 10 characters)', true);
+                return;
+            }
+            
+            // 在真实版本中，这里会保存到 Google Sheets
+            showNotification('Story posted! (In real version, this would save to Google Sheets)');
+            
+            // 清空表单
+            document.getElementById('student-name').value = '';
+            document.getElementById('post-content').value = '';
+            
+            // 重新加载帖子（模拟）
+            setTimeout(() => {
+                loadPosts();
+            }, 1000);
+        });
+        
+        // 刷新帖子
+        document.getElementById('refresh-posts').addEventListener('click', function() {
+            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Refreshing...';
+            loadPosts();
+            setTimeout(() => {
+                this.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh Posts';
+                showNotification('Posts refreshed!');
+            }, 1000);
+        });
+        
+        // 初始加载
+        document.addEventListener('DOMContentLoaded', loadPosts);
+        
+        // 自动刷新每30秒
+        setInterval(loadPosts, 30000);
+    </script>
+</body>
+</html>
